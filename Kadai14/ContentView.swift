@@ -17,26 +17,20 @@ struct ContentView: View {
     ]
 
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button(action: {
-                    isModal = true
-                }, label: {
-                    Image(systemName: "plus")
-                })
-                .padding()
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 40)
-
+        NavigationStack {
             List(fruitArray, id: \.self) { fruit in
                 RowView(fruit: fruit)
             }
             .listStyle(.inset)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationBarItems(
+                trailing:
+                    Button(action: {
+                        isModal = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+            )
         }
-        .background(.gray.opacity(0.2))
         .fullScreenCover(
             isPresented: $isModal,
             content: {
